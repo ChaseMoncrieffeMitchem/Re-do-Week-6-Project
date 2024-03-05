@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { searchTitle } = useParams();
 
   function filterMovies(filter) {
     if(!movies) return;
@@ -22,7 +23,7 @@ export default function Movies() {
   async function getMovies(movieTitle) {
     setLoading(true);
     const { data } = await axios.get(
-      `http://www.omdbapi.com/?apikey=f5bbb04b&s=${movieTitle || "avengers"}`
+      `http://www.omdbapi.com/?apikey=f5bbb04b&s=${searchTitle}`
     );
     setLoading(false);
     setMovies(data.Search);

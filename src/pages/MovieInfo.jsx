@@ -9,7 +9,6 @@ export default function MovieInfo() {
   console.log(id);
 
   async function fetchMovies(movieId) {
-    setLoading(true);
     const { data } = await axios.get(
       `http://www.omdbapi.com/?apikey=f5bbb04b&i=${movieId|| "tt0848228"}`
     );

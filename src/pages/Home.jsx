@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const [searchTitle, setSearchTitle] = useState();
+  const navigate = useNavigate();
 
   function onSearch() {
-    console.log(searchTitle)
+    navigate(`/movies/${searchTitle}`)
   }
 
 
