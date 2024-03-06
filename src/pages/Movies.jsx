@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { searchTitle } = useParams();
+  const navigate = useNavigate();
 
   function filterMovies(filter) {
     if(!movies) return;
@@ -36,6 +37,7 @@ export default function Movies() {
 
   return (
     <div>
+        <button onClick={() => navigate('/')}>Back</button>
       <select
         id="filter"
         defaultValue="DEFAULT"
@@ -56,7 +58,7 @@ export default function Movies() {
             <div className="row">
               <div className="movie-list">
                 <div className="movie">
-                  <div className="movie-card">
+                  <div className="movie-card" onClick={() => navigate(`${movies.imdbID}`)}>
                     <div className="movie-card__container">
                       <h3 className="movie-poster">
                         <img src={movie.Poster} alt="" />
