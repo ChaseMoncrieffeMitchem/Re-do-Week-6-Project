@@ -6,6 +6,7 @@ export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { searchTitle } = useParams();
+  const [id, setId] = useState();
   const navigate = useNavigate();
 
   function filterMovies(filter) {
@@ -21,7 +22,7 @@ export default function Movies() {
     }
   }
 
-  async function getMovies(movieTitle) {
+  async function getMovies() {
     setLoading(true);
     const { data } = await axios.get(
       `http://www.omdbapi.com/?apikey=f5bbb04b&s=${searchTitle}`
@@ -34,6 +35,10 @@ export default function Movies() {
   useEffect(() => {
     getMovies();
   }, []);
+
+  function onMovieInfo() {
+    navigate(`/${searchTitle}/${id}`)
+  }
 
   return (
     <div>
@@ -58,7 +63,10 @@ export default function Movies() {
             <div className="row">
               <div className="movie-list">
                 <div className="movie">
-                  <div className="movie-card" onClick={() => navigate(`${movies.imdbID}`)}>
+                  <div className="movie-card" 
+                //   onClick={() => navigate(`${movie.imdbID}`)}
+                onClick={() => onMovieInfo()}
+                  >
                     <div className="movie-card__container">
                       <h3 className="movie-poster">
                         <img src={movie.Poster} alt="" />
