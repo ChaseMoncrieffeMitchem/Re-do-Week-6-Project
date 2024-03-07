@@ -1,20 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function MovieInfo() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
   console.log(id);
 
   async function fetchMovies(movieId) {
     const { data } = await axios.get(
       `http://www.omdbapi.com/?apikey=f5bbb04b&i=${movieId|| "tt0848228"}`
     );
-    setMovies(data.Search);
+    setMovies(data.imdbID);
     setLoading(false);
-    console.log(data)
+    console.log(data.imdbID)
   }
 
   useEffect(() => {
@@ -23,10 +24,11 @@ export default function MovieInfo() {
 
   return (
     <div>
+        <button onClick={() => navigate('/')}>Back</button>
       {loading ? (
         <h1>Loading.....</h1>
       ) : (
-        movies.map((id) => (
+        movies.
           <div
             className="container"
             key={id.imdbID}
@@ -52,7 +54,7 @@ export default function MovieInfo() {
               </div>
             </div>
           </div>
-        ))
+        
       )}
     </div>
   );
