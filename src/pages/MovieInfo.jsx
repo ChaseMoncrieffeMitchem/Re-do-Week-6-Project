@@ -9,13 +9,13 @@ export default function MovieInfo() {
   const navigate = useNavigate();
   console.log(id);
 
-  async function fetchMovies(movieId) {
+  async function fetchMovies() {
     const { data } = await axios.get(
-      `http://www.omdbapi.com/?apikey=f5bbb04b&i=${movieId|| "tt0848228"}`
+      `http://www.omdbapi.com/?apikey=f5bbb04b&i=${id|| "tt0848228"}`
     );
-    setMovies(data.imdbID);
+    setMovies(data);
     setLoading(false);
-    console.log(data.imdbID)
+    console.log(data)
   }
 
   useEffect(() => {
@@ -28,10 +28,9 @@ export default function MovieInfo() {
       {loading ? (
         <h1>Loading.....</h1>
       ) : (
-        movies.
           <div
             className="container"
-            key={id.imdbID}
+            key={movies.imdbID}
           >
             <div className="row">
               <div className="movie-list">
@@ -40,14 +39,14 @@ export default function MovieInfo() {
                     <div className="movie-card__container">
                       <h3 className="movie-poster">
                         <img
-                          src={id.Poster}
+                          src={movies.Poster}
                           alt=""
                         />
                       </h3>
-                      <p className="movie-title">{id.Title}</p>
-                      <p className="movie-year">{id.Year}</p>
-                      <p className="movie-plot">{id.Plot}</p>
-                      <p className="movie-rating">{id.imdbRating}</p>
+                      <p className="movie-title">{movies.Title}</p>
+                      <p className="movie-year">{movies.Year}</p>
+                      <p className="movie-plot">{movies.Plot}</p>
+                      <p className="movie-rating">{movies.imdbRating}</p>
                     </div>
                   </div>
                 </div>
