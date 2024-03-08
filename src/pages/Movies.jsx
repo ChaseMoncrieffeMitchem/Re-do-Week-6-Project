@@ -6,6 +6,7 @@ export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { searchTitle } = useParams();
+  const [moviesLoaded, setMoviesLoaded] = useState(4);
   const navigate = useNavigate();
 
   function filterMovies(filter) {
@@ -79,6 +80,44 @@ export default function Movies() {
             </div>
           </div>
         ))
+      )}
+      {loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        movies.slice(0, moviesLoaded).map((elem) => (
+          <div className="container" key={elem.imdbID}>
+            <div className="row">
+              <div className="movie-list">
+                <div className="movie">
+                  <div className="movie-card">
+                    <div className="movie-card__container">
+                      <h3 className="movie-poster">
+                        <img src={elem.Poster} alt="" />
+                      </h3>
+                      <p className="movie-title">{elem.Title}</p>
+                      <p className="movie-year">{elem.Year}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      )}
+      {moviesLoaded < 10 && (
+        <div>
+          <button
+            className="movieLoaded__btn"
+            onClick={() => setMoviesLoaded(moviesLoaded + 2)}
+          >
+            Load more Movies
+          </button>
+        </div>
+      )}
+      {!loading && (!movies || movies.length === 0) && (
+        <div>
+          <p>No Movies found</p>
+        </div>
       )}
     </div>
   );
